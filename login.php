@@ -1,28 +1,25 @@
 <?php
 session_start();
-if(isset($_SESSION["isLogged"]) && $_SESSION["isLogged"] === true){
-    header("location: welcome.php");
-    exit;
-}
-
+include('db.php');
 if(isset($_POST['login'])){   
         $user_name = $_POST['userName'];
         $password = $_POST['password'];
-        include('db.php');
-        $sql = "SELECT * FROM user_info WHERE user_name='$user_name' AND user_password='$password'";
+        $sql = "SELECT * FROM user_info WHERE user_name='$user_name'";
         $result = mysqli_query($conn ,$sql);
-        if($result -> num_rows ==1){
-            $_SESSION['isLogged'] = true;
-            setcookie('userName' ,$user_name,time()+60);
-            setcookie('password' ,$password,time()+60);
-            $_SESSION['userName'] =$user_name;
-            mysqli_close($conn);
-            header('location: welcome.php');
-            exit;
+        $row = mysqli_fetch_assoc($result);
+        if(mysqli_num_rows($result) > 0){
+            if($password == $row['user_password']){
+                $_SESSION['isLogged'] = true;                
+                $_SESSION['userName'] =$user_name;
+                header('location: welcome.php');
+            }else{
+                echo "<div class='text-center alert alert-danger'>incorrect username or password</div>";
+            }
         }else{
-            echo "<div class='text-center aler alert-danger'>Username or password not match</div>";
-        }    
-}
+            echo "<div class='text-center alert alert-danger'>no user found you must signup first</div>";
+        }
+    }
+    mysqli_close($conn);                    
 ?>
 
 

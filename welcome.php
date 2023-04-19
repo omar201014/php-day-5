@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(!isset($_SESSION['isLogged']) || $_SESSION['isLogged'] !==true){
-    header('location: login.php');
+if(empty($_SESSION['userName']) ||  $_SESSION['isLogged'] ===false){ 
+    header("location: login.php");
 }
 ?>
 

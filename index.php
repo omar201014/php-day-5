@@ -23,7 +23,7 @@
                         <input type="password" class="form-control" name="password" id="password" required>
                     </div>
                     <input class="btn btn-primary" type="submit" name="submit" value="signup">
-                    <input class="btn btn-secondary" type="button" name="reset" value="reset">
+                    <input class="btn btn-secondary" type="reset" name="reset" value="reset">
                 </form>
                 <div class="my-3">
                     <p><small>Already have an account<span><a style="text-decoration:none;" href="login.php"> Login here</a></span></small></p>
