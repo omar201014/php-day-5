@@ -6,9 +6,8 @@
 
     //clear cookies
     setcookie('userName','',time() - 60);
-    setcookie('password','',time() - 60); 
-    setcookie('PHPSESSID','',time() - 60);
-
+    setcookie('password','',time() - 60);
+    setcookie("PHPSESSID",'',time() -3600,"/");    
     header('location: login.php');
     exit;
 ?>

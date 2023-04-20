@@ -1,4 +1,10 @@
 <?php
+if(isset($_COOKIE['userName']) && isset($_COOKIE['password'])){
+    header('location: welcome.php');
+}
+?>
+
+<?php
 session_start();
 include('db.php');
 if(isset($_POST['login'])){   
@@ -11,6 +17,7 @@ if(isset($_POST['login'])){
             if($password == $row['user_password']){
                 $_SESSION['isLogged'] = true;                
                 $_SESSION['userName'] =$user_name;
+                // store data in cookies
                 setcookie('userName' ,$user_name ,time() +60);
                 setcookie('password' ,$password ,time() +60);
                 header('location: welcome.php');
@@ -18,7 +25,7 @@ if(isset($_POST['login'])){
                 echo "<div class='text-center alert alert-danger'>incorrect username or password</div>";
             }
         }else{
-            echo "<div class='text-center alert alert-danger'>no user found you must signup first</div>";
+            echo "<div class='text-center alert alert-danger'>User not found you must signup first</div>";
         }
     }
     mysqli_close($conn);                    
